@@ -756,6 +756,8 @@ section {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .value-card {
@@ -786,9 +788,9 @@ section {
 }
 
 .value-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-6px) scale(1.02);
   background-color: var(--bg-card);
-  box-shadow: 0 10px 25px var(--shadow-color);
+  box-shadow: 0 15px 35px var(--shadow-glow), 0 5px 15px var(--shadow-color);
   border-color: var(--brand-gold);
 }
 
@@ -805,14 +807,23 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  transition: var(--transition-smooth);
+  padding: 14px;
+}
+
+.value-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
   transition: var(--transition-smooth);
 }
 
 .value-card:hover .value-icon {
   background-color: rgba(199, 154, 59, 0.15);
   color: var(--brand-gold);
-  transform: scale(1.05);
+  transform: scale(1.15) rotate(5deg);
 }
 
 .value-card h4 {
