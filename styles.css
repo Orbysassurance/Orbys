@@ -398,7 +398,9 @@ section {
 
 .about-stats {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
+  max-width: 280px;
+  margin: 0 auto;
   gap: 2rem;
 }
 
@@ -752,7 +754,7 @@ section {
 
 .values-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
 
