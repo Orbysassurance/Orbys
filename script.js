@@ -152,12 +152,34 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // If all valid, simulate sending state
+      // If all valid, set sending state
       submitButton.classList.add('loading');
       submitButton.disabled = true;
 
-      // Simulate network request latency (1.5 seconds)
-      setTimeout(() => {
+      // Send form data to FormSubmit via AJAX
+      fetch('https://formsubmit.co/ajax/contato.orbys@outlook.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          'Nome': nameInput.value,
+          'E-mail': emailInput.value,
+          'Serviço de Interesse': serviceSelect.value,
+          'Mensagem/Detalhes': messageInput.value,
+          '_subject': `Solicitação de Diagnóstico: ${nameInput.value}`,
+          '_replyto': emailInput.value,
+          '_captcha': 'false'
+        })
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erro na resposta do servidor');
+        }
+        return response.json();
+      })
+      .then(data => {
         // Reset button state
         submitButton.classList.remove('loading');
         submitButton.disabled = false;
@@ -167,7 +189,13 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Reset form
         inquiryForm.reset();
-      }, 1500);
+      })
+      .catch(error => {
+        console.error('Error submitting form:', error);
+        submitButton.classList.remove('loading');
+        submitButton.disabled = false;
+        showToast('Ocorreu um erro ao enviar sua solicitação. Por favor, tente novamente.', false);
+      });
     });
   }
 
