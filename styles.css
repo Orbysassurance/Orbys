@@ -1503,43 +1503,66 @@ footer {
   to { opacity: 1; transform: translateY(0); }
 }
 /* ==========================================================================
-   MELHORIAS DE USABILIDADE: ACORDEÃO E RESPONSIVIDADE (CELULAR E DESKTOP)
+   MELHORIAS DE USABILIDADE: ADAPTAÇÃO E RESPONSIVIDADE (ORBYS ASSURANCE)
    ========================================================================== */
 
-/* --- CONFIGURAÇÃO PARA COMPUTADORES (Telas Grandes) --- */
-/* Força os 4 serviços selecionados a serem exibidos em linhas horizontais largas */
+/* --- 1. CONFIGURAÇÃO PARA COMPUTADORES (Telas Grandes) --- */
 #panel-cqv .features-grid-3,
 #panel-validacao-processos .features-grid-3,
 #panel-csv .features-grid-2,
 #panel-consultoria-regulatoria .features-grid-2 {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.5rem !important;
 }
 
 #panel-cqv .sub-service-card,
 #panel-validacao-processos .sub-service-card,
 #panel-csv .sub-service-card,
 #panel-consultoria-regulatoria .sub-service-card {
-  width: 100%;
-  box-sizing: border-box;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
-/* --- MODO ESPECIAL PARA CELULARES (Telas de até 900px) --- */
+/* --- 2. MODO ESPECIAL PARA CELULARES (Telas de até 900px) --- */
 @media (max-width: 900px) {
   
-  /* 1. Esconde o logo giratório (Preloader) no celular */
-  .preloader, 
-  .loader-wrapper, 
-  #preloader, 
-  .spinner-wrapper,
-  .site-loader {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
+  /* Mantém a barra preta fixa no topo com tamanho reduzido e confortável */
+  header {
+    position: sticky !important;
+    top: 0 !important;
+    padding: 0.8rem 1.5rem !important; /* Altura menor para proteger espaço de leitura */
+    min-height: auto !important;
   }
 
-  /* 2. Seção de Serviços em Lista Vertical */
+  /* EFEITO DE OCULTAR O LOGO AO ROLAR A TELA (Abaixo do Fale com Especialista) */
+  .logo-link {
+    animation: fadeOutLogo linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0px 350px; /* Faz o logo sumir gradualmente nos primeiros 350px de descida */
+  }
+
+  @keyframes fadeOutLogo {
+    0% {
+      opacity: 1;
+      visibility: visible;
+      max-width: 180px; /* Largura normal do logo no topo */
+    }
+    100% {
+      opacity: 0;
+      visibility: hidden;
+      max-width: 0px; /* Encolhe o espaço dele para dar espaço ao menu */
+      margin-right: 0px;
+      padding: 0px;
+    }
+  }
+
+  /* Garante uma transição suave para os elementos internos do SVG */
+  .header-logo {
+    transition: var(--transition-smooth);
+  }
+
+  /* Ajusta o fluxo vertical dos botões do catálogo de serviços */
   .services-container {
     display: flex !important;
     flex-direction: column !important;
@@ -1559,7 +1582,7 @@ footer {
     width: 100% !important;
   }
 
-  /* Transforma os botões de serviços em barras largas de clique */
+  /* Transforma as abas laterais em barras horizontais elegantes */
   .service-tab-btn {
     width: 100% !important;
     padding: 1.2rem !important;
@@ -1574,7 +1597,7 @@ footer {
     text-align: left !important;
   }
 
-  /* Destaca o botão do serviço ativo/aberto */
+  /* Destaca visualmente o botão do serviço ativo */
   .service-tab-btn.active {
     background-color: var(--brand-navy-main) !important;
     color: var(--brand-white) !important;
@@ -1591,7 +1614,7 @@ footer {
     width: 100% !important;
   }
 
-  /* Exibe o painel de texto logo abaixo do botão de serviço ativo */
+  /* Exibe o painel de texto imediatamente abaixo do botão clicado */
   .service-panel.active {
     display: flex !important;
     background-color: var(--bg-card) !important;
@@ -1599,89 +1622,24 @@ footer {
     border-radius: 12px !important;
     padding: 1.5rem 1.2rem !important;
     margin-bottom: 1.5rem !important;
-    box-shadow: 0 8px 20px var(--shadow-color) !important;
-    animation: slideDown 0.3s ease-out;
   }
 
-  /* 3. Seção de Expertise em Lista Vertical */
-  .expertise-container, 
-  .expertise-section .container-tabs,
-  #expertise .tabs-wrapper { 
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 1rem !important;
-  }
-
-  .expertise-nav, 
-  .tabs-navigation-expertise,
-  .expertise-tabs-list {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.75rem !important;
-    width: 100% !important;
-    border: none !important;
-    padding: 0 !important;
-  }
-
-  /* Transforma os botões de expertise em barras largas de clique */
-  .expertise-tab-btn, 
-  .tab-btn-expertise, 
-  .expertise-nav button,
-  .expertise-tab {
-    width: 100% !important;
-    padding: 1.2rem !important;
-    text-align: left !important;
-    background-color: var(--bg-card) !important;
-    border: 1px solid var(--border-color) !important;
-    border-radius: 12px !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    box-shadow: 0 4px 10px var(--shadow-color) !important;
-    color: var(--brand-navy-main) !important;
-  }
-
-  /* Destaca a aba de expertise ativa/aberta */
-  .expertise-tab-btn.active, 
-  .tab-btn-expertise.active,
-  .expertise-tab.active {
-    background-color: var(--brand-navy-main) !important;
-    color: var(--brand-white) !important;
-    border-color: var(--brand-navy-main) !important;
-    margin-bottom: 0.5rem;
-  }
-
-  /* Exibe o painel de texto da expertise ativo logo abaixo do botão clicado */
-  .expertise-panel.active, 
-  .panel-expertise.active,
-  .expertise-content.active {
-    display: block !important;
-    background-color: var(--bg-card) !important;
-    border: 1px solid var(--border-color) !important;
-    border-radius: 12px !important;
-    padding: 1.5rem 1.2rem !important;
-    margin-bottom: 1.5rem !important;
-    box-shadow: 0 8px 20px var(--shadow-color) !important;
-    animation: slideDown 0.3s ease-out;
-  }
-
-  /* 4. Ajustes Gerais de Layout Interno para Telas Menores */
+  /* Organiza os cartões em colunas únicas e limpas */
   .features-grid-3, 
   .features-grid-2, 
-  .panel-features,
-  .expertise-grid {
+  .panel-features {
     display: flex !important;
     flex-direction: column !important;
     gap: 1.2rem !important;
   }
 
-  .sub-service-card, .expertise-card {
+  .sub-service-card {
     background-color: var(--bg-main) !important;
     padding: 1.2rem !important;
     width: 100% !important;
   }
 
-  .panel-header h3, .expertise-header h3 {
+  .panel-header h3 {
     font-size: 1.4rem !important;
   }
 
@@ -1695,10 +1653,4 @@ footer {
     width: 100% !important;
     justify-content: center !important;
   }
-}
-
-/* Animação de descida suave para a abertura dos blocos */
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-8px); }
-  to { opacity: 1; transform: translateY(0); }
 }
